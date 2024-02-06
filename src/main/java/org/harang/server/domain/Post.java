@@ -36,17 +36,17 @@ public class Post {
     @Column(name = "chat_link", nullable = false)
     private String chatLink;
 
-    @Column(name = "preferred_gender", nullable = false)
+    @Column(name = "preferred_gender")
     @Enumerated(EnumType.STRING)
     private Gender preferredGender;
 
-    @Column(name = "preferred_age", nullable = false)
-    private Long preferredAge;
+    @Column(name = "preferred_age")
+    private int preferredAge;
 
-    @Column(name = "preferred_start_at", nullable = false)
+    @Column(name = "preferred_start_at")
     private LocalDateTime preferredStartAt;
 
-    @Column(name = "preferred_end_at", nullable = false)
+    @Column(name = "preferred_end_at")
     private LocalDateTime preferredEndAt;
 
     @Column(name = "status", nullable = false)
@@ -61,7 +61,7 @@ public class Post {
     private List<Matching> matchingList = new ArrayList<>();
 
     @Builder
-    public Post(Member member, LocalDateTime createdAt, String title, String content, String chatLink, Gender preferredGender, Long preferredAge, LocalDateTime preferredStartAt, LocalDateTime preferredEndAt, Status status) {
+    public Post(Member member, LocalDateTime createdAt, String title, String content, String chatLink, Gender preferredGender, int preferredAge, LocalDateTime preferredStartAt, LocalDateTime preferredEndAt, Status status) {
         this.member = member;
         this.createdAt = createdAt;
         this.title = title;
