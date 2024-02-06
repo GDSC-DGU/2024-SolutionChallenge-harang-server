@@ -20,7 +20,7 @@ public class MatchingService {
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
 
-    public Boolean createMatching(MatchingRequest matchingRequest) {
+    public void createMatching(MatchingRequest matchingRequest) {
         Long postId = matchingRequest.postId();
         Long memberId = matchingRequest.matchedMemberId();
 
@@ -28,7 +28,5 @@ public class MatchingService {
         Member member = memberRepository.findByIdOrThrow(memberId);
 
         matchingRepository.save(matchingRequest.toEntity(post, member));
-
-        return Boolean.TRUE;
     }
 }
