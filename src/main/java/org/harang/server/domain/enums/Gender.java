@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Gender {
     MALE("male"),
-    FEMALE("female");
+    FEMALE("female"),
+    NONE("none");
 
     private final String value;
 }

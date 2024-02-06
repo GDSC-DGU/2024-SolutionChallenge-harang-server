@@ -13,7 +13,6 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class PostService {
 
     private final PostRepository postRepository;
