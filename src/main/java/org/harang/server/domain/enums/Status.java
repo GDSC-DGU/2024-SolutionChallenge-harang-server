@@ -6,9 +6,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum MType {
-    SPROUT("sprout"),
-    WATERING("watering");
+public enum Status {
+    WAITING("waiting"),
+    CHATTING("chatting"),
+    MATCHING("matching"),
+    FINISH("finish");
 
     private final String value;
 }

@@ -5,14 +5,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.harang.server.domain.enums.MGender;
-import org.harang.server.domain.enums.PStatus;
-import org.springframework.cglib.core.Local;
+import org.harang.server.domain.enums.Gender;
+import org.harang.server.domain.enums.Status;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 @Getter
 @Table(name = "posts")
@@ -40,7 +38,7 @@ public class Post {
 
     @Column(name = "preferred_gender", nullable = false)
     @Enumerated(EnumType.STRING)
-    private MGender preferredGender;
+    private Gender preferredGender;
 
     @Column(name = "preferred_age", nullable = false)
     private Long preferredAge;
@@ -53,7 +51,7 @@ public class Post {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private PStatus status = PStatus.WAITING;
+    private Status status = Status.WAITING;
 
     /* Relation Parent Mapping */
     @OneToMany(mappedBy = "post")
@@ -63,7 +61,7 @@ public class Post {
     private List<Matching> matchingList = new ArrayList<>();
 
     @Builder
-    public Post(Member member, LocalDateTime createdAt, String title, String content, String chatLink, MGender preferredGender, Long preferredAge, LocalDateTime preferredStartAt, LocalDateTime preferredEndAt, PStatus status) {
+    public Post(Member member, LocalDateTime createdAt, String title, String content, String chatLink, Gender preferredGender, Long preferredAge, LocalDateTime preferredStartAt, LocalDateTime preferredEndAt, Status status) {
         this.member = member;
         this.createdAt = createdAt;
         this.title = title;

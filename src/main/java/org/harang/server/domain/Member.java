@@ -2,8 +2,8 @@ package org.harang.server.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.harang.server.domain.enums.MGender;
-import org.harang.server.domain.enums.MType;
+import org.harang.server.domain.enums.Gender;
+import org.harang.server.domain.enums.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,11 @@ public class Member {
 
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private MType type;
+    private Type type;
 
     @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
-    private MGender gender;
+    private Gender gender;
 
     @Column(name = "age", nullable = false)
     private Long age;
@@ -36,7 +36,7 @@ public class Member {
     private List<Post> postList = new ArrayList<>();
 
     @Builder
-    public Member(MType type, MGender gender, Long age) {
+    public Member(Type type, Gender gender, Long age) {
         this.type = type;
         this.gender = gender;
         this.age = age;

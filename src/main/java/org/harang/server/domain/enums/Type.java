@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum MGender {
-    MALE("male"),
-    FEMALE("female");
+public enum Type {
+    SPROUT("sprout"),
+    WATERING("watering");
 
     private final String value;
 }

@@ -6,11 +6,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum PStatus {
-    WAITING("waiting"),
-    CHATTING("chatting"),
-    MATCHING("matching"),
-    FINISH("finish");
+public enum Gender {
+    MALE("male"),
+    FEMALE("female");
 
     private final String value;
 }
