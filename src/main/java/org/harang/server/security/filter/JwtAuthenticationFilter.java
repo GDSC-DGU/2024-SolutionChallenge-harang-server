@@ -30,7 +30,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String BEARER = "Bearer ";
     private static final String AUTH_HEADER = "Authorization";
 
     private final JwtUtil jwtUtil;
@@ -65,8 +64,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String getTokenFromHeader(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTH_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {
-            return bearerToken.substring(BEARER.length());
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtProperties.BEARER)) {
+            return bearerToken.substring(JwtProperties.BEARER.length());
         }
         log.debug("요청 헤더에 토큰이 존재하지 않습니다.");
         return null;
