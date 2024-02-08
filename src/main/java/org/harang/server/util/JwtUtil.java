@@ -2,6 +2,7 @@ package org.harang.server.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -51,6 +52,20 @@ public class JwtUtil implements InitializingBean {
         );
     }
 
+    public boolean verifyToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return claims.getBody()
+                    .getExpiration()
+                    .after(new Date(System.currentTimeMillis()));
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
     public Claims getClaim(String token) {
         try {
             return Jwts.parserBuilder()
@@ -67,7 +82,7 @@ public class JwtUtil implements InitializingBean {
         }catch (UnsupportedJwtException e) {
             throw new CustomException(ErrorMessage.UNSUPPORTED_JWT);
         }catch (IllegalArgumentException e) {
-            throw new CustomException(ErrorMessage.INVALID_TOKEN_TYPE);
+            throw new CustomException(ErrorMessage.JWT_IS_EMPTY);
         }
     }
 
