@@ -12,6 +12,7 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
+import org.harang.server.constants.jwt.JwtProperties;
 import org.harang.server.domain.enums.Type;
 import org.harang.server.dto.response.JwtTokenResponse;
 import org.harang.server.dto.type.ErrorMessage;
@@ -23,9 +24,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class JwtUtil implements InitializingBean {
-
-    private static final String MEMBER_ID_CLAIM_NAME = "id";
-    private static final String MEMBER_TYPE_CLAIM_NAME = "type";
 
     @Value("${jwt.secret-key}")
     private String secretKey;
@@ -88,8 +86,8 @@ public class JwtUtil implements InitializingBean {
 
     private String generateAccessToken(Long id, Type type) {
         Claims claims = Jwts.claims();
-        claims.put(MEMBER_ID_CLAIM_NAME, id);
-        claims.put(MEMBER_TYPE_CLAIM_NAME, type);
+        claims.put(JwtProperties.MEMBER_ID_CLAIM_NAME, id);
+        claims.put(JwtProperties.MEMBER_ROLE_CLAIM_NAME, type);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -101,7 +99,7 @@ public class JwtUtil implements InitializingBean {
 
     private String generateRefreshToken(Long id) {
         Claims claims = Jwts.claims();
-        claims.put(MEMBER_ID_CLAIM_NAME, id);
+        claims.put(JwtProperties.MEMBER_ID_CLAIM_NAME, id);
 
         return Jwts.builder()
                 .setClaims(claims)

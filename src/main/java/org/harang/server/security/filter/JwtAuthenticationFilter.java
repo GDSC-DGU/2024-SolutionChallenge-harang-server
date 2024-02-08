@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.harang.server.constants.jwt.JwtProperties;
 import org.harang.server.domain.enums.Type;
 import org.harang.server.dto.type.ErrorMessage;
 import org.harang.server.exception.CustomException;
@@ -45,8 +46,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(token) && jwtUtil.verifyToken(token)) {
             Claims claims = jwtUtil.getClaim(token);
-            Long memberId = claims.get("id", Long.class);
-            Type role = claims.get("type", Type.class);
+            Long memberId = claims.get(JwtProperties.MEMBER_ID_CLAIM_NAME, Long.class);
+            Type role = claims.get(JwtProperties.MEMBER_ROLE_CLAIM_NAME, Type.class);
             if (role == null) {
                 throw new CustomException(ErrorMessage.INVALID_TOKEN_TYPE);
             }
