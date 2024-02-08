@@ -44,9 +44,9 @@ public class JwtUtil implements InitializingBean {
     }
 
     public JwtTokenResponse generateTokens(Long id, Type type) {
-        return JwtTokenResponse.of(
-                generateAccessToken(id, type),
-                generateRefreshToken(id)
+        return JwtTokenResponse.of( // Bearer prefix 추가
+               JwtProperties.BEARER + generateAccessToken(id, type),
+                JwtProperties.BEARER + generateRefreshToken(id)
         );
     }
 
