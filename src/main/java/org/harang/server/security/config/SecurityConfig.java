@@ -22,6 +22,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
+                                // TODO: 이후에 구현되는 로그인 api 엔드포인트랑 동일한지 확인
                                 .requestMatchers("/v1/login").permitAll()
                                 .anyRequest().authenticated())
                 .build();
