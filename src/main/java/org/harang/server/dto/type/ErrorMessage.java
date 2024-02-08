@@ -25,6 +25,9 @@ public enum ErrorMessage {
     JWT_IS_EMPTY("40105", HttpStatus.UNAUTHORIZED, "토큰이 비어있습니다."),
     INVALID_TOKEN_TYPE("40106", HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰 타입입니다."),
 
+    // Principal error - 401
+    PRINCIPAL_IS_EMPTY("40107", HttpStatus.UNAUTHORIZED, "컨텍스트로부터 유저 정보를 가져올 수 없습니다."),
+
     // forbidden - 403
     FORBIDDEN("40301", HttpStatus.FORBIDDEN, "권한이 없습니다."),
 
