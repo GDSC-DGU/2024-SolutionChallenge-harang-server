@@ -2,8 +2,11 @@ package org.harang.server.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.harang.server.annotation.MemberId;
 import org.harang.server.dto.common.ApiResponse;
 import org.harang.server.dto.request.MatchingRequest;
+import org.harang.server.dto.type.ErrorMessage;
+import org.harang.server.dto.type.SuccessMessage;
 import org.harang.server.service.MatchingService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +21,7 @@ public class MatchingController {
 
     @PostMapping
     public ApiResponse<?> createMatching(final @Valid @RequestBody MatchingRequest matchingRequest) {
-        // TODO: 토큰 확인
         matchingService.createMatching(matchingRequest);
-        return ApiResponse.success();
+        return ApiResponse.success(SuccessMessage.OK);
     }
 }
