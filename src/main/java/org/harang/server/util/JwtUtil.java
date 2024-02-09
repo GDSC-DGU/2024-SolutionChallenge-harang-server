@@ -29,10 +29,10 @@ public class JwtUtil implements InitializingBean {
     private String secretKey;
 
     @Value("${jwt.access-token-expire-period}")
-    private Integer accessTokenExpirePeriod;
+    private Long accessTokenExpirePeriod;
 
     @Value("${jwt.refresh-token-expire-period}")
-    private Integer refreshTokenExpirePeriod;
+    private Long refreshTokenExpirePeriod;
 
     private Key key;
 
