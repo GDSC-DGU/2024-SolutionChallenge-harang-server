@@ -41,6 +41,7 @@ public enum ErrorMessage {
 
     // internal server error - 500
     INTERNAL_SERVER_ERROR("50001", HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다."),
+    POST_ALREADY_MATCHED("50002", HttpStatus.INTERNAL_SERVER_ERROR, "이미 매칭되었거나 매칭 종료된 게시글입니다."),
     ;
 
     private String code;
