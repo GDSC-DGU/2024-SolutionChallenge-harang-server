@@ -15,11 +15,21 @@ public enum ErrorMessage {
     // bad request - 400
     BAD_REQUEST("40001", HttpStatus.BAD_REQUEST, "올바르지 않은 요청입니다."),
 
-    // unauthorized - 403
-    UNAUTHORIZED("40301", HttpStatus.UNAUTHORIZED, "토큰이 유효하지 않습니다."),
+    // unauthorized - 401
+    UNAUTHORIZED("40101", HttpStatus.UNAUTHORIZED, "토큰이 유효하지 않습니다."),
+
+    // JWT Error - 401
+    INVALID_JWT("40102", HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+    EXPIRED_JWT("40103", HttpStatus.UNAUTHORIZED, "만료된 토큰입니다."),
+    UNSUPPORTED_JWT("40104", HttpStatus.UNAUTHORIZED, "지원하지 않는 토큰입니다."),
+    JWT_IS_EMPTY("40105", HttpStatus.UNAUTHORIZED, "토큰이 비어있습니다."),
+    INVALID_TOKEN_TYPE("40106", HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰 타입입니다."),
+
+    // Principal error - 401
+    PRINCIPAL_IS_EMPTY("40107", HttpStatus.UNAUTHORIZED, "컨텍스트로부터 유저 정보를 가져올 수 없습니다."),
 
     // forbidden - 403
-    FORBIDDEN("40302", HttpStatus.FORBIDDEN, "권한이 없습니다."),
+    FORBIDDEN("40301", HttpStatus.FORBIDDEN, "권한이 없습니다."),
 
     // not found - 404
     NOT_FOUND("40401", HttpStatus.NOT_FOUND, "리소스가 존재하지 않습니다."),
