@@ -19,6 +19,6 @@ logging:
     org.hibernate.SQL: debug
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}]
+  secret-key: ${JWT_SECRET_KEY}
   access-token-expire-period: ${ACCESS_TOKEN_EXPIRE_PERIOD}
   refresh-token-expire-period: ${REFRESH_TOKEN_EXPIRE_PERIOD}
