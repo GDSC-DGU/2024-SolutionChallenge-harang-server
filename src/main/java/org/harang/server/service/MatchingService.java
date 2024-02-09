@@ -12,6 +12,7 @@ import org.harang.server.repository.MatchingRepository;
 import org.harang.server.repository.MemberRepository;
 import org.harang.server.repository.PostRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class MatchingService {
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
 
+    @Transactional
     public void createMatching(MatchingRequest matchingRequest) {
         Long postId = matchingRequest.postId();
         Long memberId = matchingRequest.matchedMemberId();
