@@ -59,7 +59,7 @@ public class JwtUtil implements InitializingBean {
             return claims.getBody()
                     .getExpiration()
                     .after(new Date(System.currentTimeMillis()));
-        }catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }

@@ -22,15 +22,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.httpBasic(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable).formLogin(AbstractHttpConfigurer::disable)
-
+        return http
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS))
-
                 .exceptionHandling(exceptionHandlingConfigurer ->
                         exceptionHandlingConfigurer.authenticationEntryPoint(customJwtAuthenticationEntryPoint))
-
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 // TODO: 이후에 구현되는 로그인 api 엔드포인트랑 동일한지 확인

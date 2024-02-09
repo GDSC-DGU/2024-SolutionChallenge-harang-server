@@ -43,15 +43,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         log.debug(String.valueOf(request));
 
-        if (StringUtils.hasText(token) && jwtUtil.verifyToken(token)) {
+        if (StringUtils.hasText(token)) {
             Claims claims = jwtUtil.getClaim(token);
             Long memberId = claims.get(JwtProperties.MEMBER_ID_CLAIM_NAME, Long.class);
-            Type role = claims.get(JwtProperties.MEMBER_ROLE_CLAIM_NAME, Type.class);
+            String role = claims.get(JwtProperties.MEMBER_ROLE_CLAIM_NAME, String.class);
             if (role == null) {
                 throw new CustomException(ErrorMessage.INVALID_TOKEN_TYPE);
             }
             // type 값을 GrantedAuthority 객체 콜렉션으로 변환
-            List<GrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(role.getValue()));
+            List<GrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(role));
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(memberId, null, roles);
 
             // TODO: 왜 쓰는지 알아보기
