@@ -5,6 +5,7 @@ import org.harang.server.domain.Matching;
 import org.harang.server.domain.Member;
 import org.harang.server.domain.Post;
 import org.harang.server.domain.enums.Status;
+import org.harang.server.domain.enums.Type;
 import org.harang.server.dto.request.MatchingRequest;
 import org.harang.server.dto.type.ErrorMessage;
 import org.harang.server.exception.CustomException;
@@ -22,14 +23,25 @@ public class MatchingService {
     private final PostRepository postRepository;
 
     @Transactional
-    public void createMatching(MatchingRequest matchingRequest) {
+    public void createMatching(Long memberId, MatchingRequest matchingRequest) {
         Long postId = matchingRequest.postId();
-        Long memberId = matchingRequest.matchedMemberId();
+        Long matchedMemberId = matchingRequest.matchedMemberId();
 
-        Post post = postRepository.findByIdOrThrow(postId);
         Member member = memberRepository.findByIdOrThrow(memberId);
+        Post post = postRepository.findByIdOrThrow(postId);
+        Member matchedMember = memberRepository.findByIdOrThrow(matchedMemberId);
 
-        // 이미 매칭 되었거나 매칭 종료 상태라면 예외 처리
+        // 매칭을 생성하려는(도움을 구하는) 유저가 새싹이 아닌 경우 예외 발생
+        if (!member.getType().equals(Type.SPROUT)) {
+            throw new CustomException(ErrorMessage.ONLY_SPROUT_CAN_CREATE_MATCH);
+        }
+
+        // 매치된(도움을 주려는) 유저가 물뿌리개가 아닌인 경우 예외 발생
+        if (!matchedMember.getType().equals(Type.WATERING)) {
+            throw new CustomException(ErrorMessage.ONLY_WATERING_CAN_HELP_SPROUT);
+        }
+
+        // 이미 매칭 되었거나 매칭 종료 상태라면 예외 발생
         if (post.getStatus().equals(Status.MATCHING) || post.getStatus().equals(Status.FINISH)) {
             throw new CustomException(ErrorMessage.POST_ALREADY_MATCHED);
         }
@@ -38,7 +50,7 @@ public class MatchingService {
         post.updateStatus(Status.MATCHING);
         postRepository.save(post);
 
-        matchingRepository.save(matchingRequest.toEntity(post, member));
+        matchingRepository.save(matchingRequest.toEntity(post, matchedMember));
     }
 
     @Transactional

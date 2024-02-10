@@ -3,6 +3,7 @@ package org.harang.server.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.harang.server.annotation.MemberId;
 import org.harang.server.dto.common.ApiResponse;
 import org.harang.server.dto.request.MatchingRequest;
 import org.harang.server.dto.type.SuccessMessage;
@@ -21,8 +22,9 @@ public class MatchingController {
     private final MatchingService matchingService;
 
     @PostMapping
-    public ApiResponse<?> createMatching(final @Valid @RequestBody MatchingRequest matchingRequest) {
-        matchingService.createMatching(matchingRequest);
+    public ApiResponse<?> createMatching(@MemberId Long memberId,
+                                         final @Valid @RequestBody MatchingRequest matchingRequest) {
+        matchingService.createMatching(memberId, matchingRequest);
         return ApiResponse.success(SuccessMessage.OK);
     }
 
