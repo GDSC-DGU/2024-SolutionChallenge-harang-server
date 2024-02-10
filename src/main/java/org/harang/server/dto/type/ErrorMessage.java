@@ -45,6 +45,8 @@ public enum ErrorMessage {
     POST_ALREADY_MATCHED("50002", HttpStatus.INTERNAL_SERVER_ERROR, "이미 매칭되었거나 매칭 종료된 게시글입니다."),
     POST_NOT_MATCHED("50003", HttpStatus.INTERNAL_SERVER_ERROR, "매칭 상태가 아닌 게시글은 매칭 종료 상태가 될 수 없습니다."),
     MATCHING_ALREADY_DONE("50004", HttpStatus.INTERNAL_SERVER_ERROR, "이미 종료된 매칭입니다."),
+    ONLY_SPROUT_CAN_CREATE_MATCH("50005", HttpStatus.INTERNAL_SERVER_ERROR, "새싹인 유저만 매칭을 생성할 수 있습니다."),
+    ONLY_WATERING_CAN_HELP_SPROUT("50006", HttpStatus.INTERNAL_SERVER_ERROR, "물뿌리개인 유저만 새싹을 도와줄 수 있습니다."),
     ;
 
     private String code;
