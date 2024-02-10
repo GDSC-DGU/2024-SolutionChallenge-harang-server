@@ -24,7 +24,6 @@ public class PostController {
 
     @PostMapping
     public ApiResponse<?> createPost(@MemberId Long memberId, @Valid @RequestBody PostRequest request) {
-        log.info(String.valueOf(memberId));
 
         Post post = postService.createPost(memberId, request);
 

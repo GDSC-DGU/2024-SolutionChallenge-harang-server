@@ -22,9 +22,6 @@ public class PostService {
 
     @Transactional
     public Post createPost(Long memberId, PostRequest request) {
-        int birthYear = request.preferredAge();
-        int currentYear = LocalDate.now().getYear();
-        int age = currentYear - birthYear;
         LocalDateTime createdAt = LocalDateTime.now();
         Status status = Status.WAITING;
 
@@ -38,7 +35,7 @@ public class PostService {
                         .content(request.content())
                         .chatLink(request.chatLink())
                         .preferredGender(request.preferredGender())
-                        .preferredAge(age)
+                        .preferredAge(request.preferredAge())
                         .preferredStartAt(request.preferredStartAt())
                         .preferredEndAt(request.preferredEndAt())
                         .status(status)
