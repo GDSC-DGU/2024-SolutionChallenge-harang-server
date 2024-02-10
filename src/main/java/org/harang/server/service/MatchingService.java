@@ -1,7 +1,7 @@
 package org.harang.server.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.harang.server.domain.Matching;
 import org.harang.server.domain.Member;
 import org.harang.server.domain.Post;
 import org.harang.server.domain.enums.Status;
@@ -39,5 +39,29 @@ public class MatchingService {
         postRepository.save(post);
 
         matchingRepository.save(matchingRequest.toEntity(post, member));
+    }
+
+    @Transactional
+    public void finishMatching(Long postId) {
+        Post post = postRepository.findByIdOrThrow(postId);
+        // 게시글에 대해 생성된 매칭 조회
+        Matching matching = matchingRepository.findByPostIdOrThrow(postId);
+
+        // 게시글이 매칭 상태가 아니라면 예외 발생
+        if (!post.getStatus().equals(Status.MATCHING)) {
+            throw new CustomException(ErrorMessage.POST_NOT_MATCHED);
+        }
+        // 매칭이 이미 종료된 상태라면 예외 발생
+        if (matching.isDone()) {
+            throw new CustomException(ErrorMessage.MATCHING_ALREADY_DONE);
+        }
+
+        // 게시글 상태를 finish로, 매칭 종료 여부를 true로 변경
+        post.updateStatus(Status.FINISH);
+        matching.updateDoneTrue();
+
+        // 변경사항 갱신
+        postRepository.save(post);
+        matchingRepository.save(matching);
     }
 }
