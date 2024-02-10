@@ -36,4 +36,8 @@ public class Matching {
         this.done = done;
         this.rate = rate;
     }
+
+    public void updateDoneTrue() {
+        this.done = true;
+    }
 }
