@@ -29,12 +29,12 @@ public class ApiResponse<T> {
         return new ApiResponse<>(false, ErrorResponse.of(errorMessage));
     }
 
-    public ApiResponse(final boolean success, T data) {
+    private ApiResponse(final boolean success, T data) {
         this.success = success;
         this.data = data;
     }
 
-    public ApiResponse(final boolean success, ErrorResponse error) {
+    private ApiResponse(final boolean success, ErrorResponse error) {
         this.success = success;
         this.error = error;
     }

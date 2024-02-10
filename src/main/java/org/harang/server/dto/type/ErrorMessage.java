@@ -33,12 +33,15 @@ public enum ErrorMessage {
 
     // not found - 404
     NOT_FOUND("40401", HttpStatus.NOT_FOUND, "리소스가 존재하지 않습니다."),
+    MEMBER_NOT_FOUND("40402", HttpStatus.NOT_FOUND, "사용자가 존재하지 않습니다."),
+    POST_NOT_FOUND("40403", HttpStatus.NOT_FOUND, "게시글이 존재하지 않습니다."),
 
     // method not allowed - 409
     METHOD_NOT_ALLOWED("40901", HttpStatus.METHOD_NOT_ALLOWED, "지원하지 않는 메소드입니다."),
 
     // internal server error - 500
     INTERNAL_SERVER_ERROR("50001", HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다."),
+    POST_ALREADY_MATCHED("50002", HttpStatus.INTERNAL_SERVER_ERROR, "이미 매칭되었거나 매칭 종료된 게시글입니다."),
     ;
 
     private String code;
