@@ -10,3 +10,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
         return findById(id).orElseThrow(() -> new CustomException(ErrorMessage.MEMBER_NOT_FOUND));
     }
 }
+

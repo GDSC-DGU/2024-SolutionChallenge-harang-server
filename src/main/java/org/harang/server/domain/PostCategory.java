@@ -11,21 +11,24 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "category")
+@Table(name = "post_category")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Category {
+public class PostCategory {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
-    @OneToMany(mappedBy = "category")
-    private List<PostCategory> postCategoryList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Builder
-    public Category(String name) {
-        this.name = name;
+    public PostCategory(Post post, Category category) {
+        this.post = post;
+        this.category = category;
     }
 }

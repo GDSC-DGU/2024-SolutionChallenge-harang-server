@@ -37,6 +37,7 @@ public enum ErrorMessage {
     POST_NOT_FOUND("40403", HttpStatus.NOT_FOUND, "게시글이 존재하지 않습니다."),
     MATCHING_NOT_FOUND("40404", HttpStatus.NOT_FOUND, "매칭이 존재하지 않습니다."),
 
+
     // method not allowed - 409
     METHOD_NOT_ALLOWED("40901", HttpStatus.METHOD_NOT_ALLOWED, "지원하지 않는 메소드입니다."),
 
