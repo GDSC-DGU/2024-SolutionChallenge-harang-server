@@ -43,6 +43,15 @@ public class PostService {
                         .build()
         );
 
+        Location savedLocation = locationRepository.save(
+                Location.builder()
+                        .post(savedPost)
+                        .name(request.preferredLocation())
+                        .xValue(request.x())
+                        .yValue(request.y())
+                        .build()
+        );
+
         for (String categoryName: request.categoryList()) {
             Category category = categoryRepository.findByName(categoryName);
             if(category != null) {
