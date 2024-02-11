@@ -22,11 +22,13 @@ public class PostCategory {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @OneToMany(mappedBy = "postCategory")
-    private List<Category> categoryList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Builder
-    public PostCategory(Post post) {
+    public PostCategory(Post post, Category category) {
         this.post = post;
+        this.category = category;
     }
 }

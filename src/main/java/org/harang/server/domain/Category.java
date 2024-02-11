@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "category")
@@ -15,16 +18,14 @@ public class Category {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
-
     @Column(name = "name", nullable = false)
     private String name;
 
+    @OneToMany(mappedBy = "category")
+    private List<PostCategory> postCategoryList = new ArrayList<>();
+
     @Builder
-    public Category(Post post, String name) {
-        this.post = post;
+    public Category(String name) {
         this.name = name;
     }
 }
