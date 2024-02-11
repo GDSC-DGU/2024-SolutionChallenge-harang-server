@@ -56,9 +56,6 @@ public class Post {
 
     /* Relation Parent Mapping */
     @OneToMany(mappedBy = "post")
-    private List<Category> categoryList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post")
     private List<Matching> matchingList = new ArrayList<>();
 
     @Builder
