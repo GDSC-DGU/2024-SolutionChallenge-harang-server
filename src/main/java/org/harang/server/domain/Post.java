@@ -58,6 +58,9 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Matching> matchingList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post")
+    private List<PostCategory> postCategoryList = new ArrayList<>();
+
     @Builder
     public Post(Member member, LocalDateTime createdAt, String title, String content, String chatLink, Gender preferredGender, int preferredAge, LocalDate preferredStartAt, LocalDate preferredEndAt, Status status) {
         this.member = member;

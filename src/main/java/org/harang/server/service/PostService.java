@@ -1,12 +1,10 @@
 package org.harang.server.service;
 
 import lombok.RequiredArgsConstructor;
-import org.harang.server.domain.Member;
-import org.harang.server.domain.Post;
+import org.harang.server.domain.*;
 import org.harang.server.domain.enums.Status;
 import org.harang.server.dto.request.PostRequest;
-import org.harang.server.repository.MemberRepository;
-import org.harang.server.repository.PostRepository;
+import org.harang.server.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +17,9 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final CategoryRepository categoryRepository;
+    private final LocationRepository locationRepository;
+    private final PostCategoryRepository postCategoryRepository;
 
     @Transactional
     public Post createPost(Long memberId, PostRequest request) {
@@ -41,6 +42,18 @@ public class PostService {
                         .status(status)
                         .build()
         );
+
+        for (String categoryName: request.categoryList()) {
+            Category category = categoryRepository.findByName(categoryName);
+            if(category != null) {
+                PostCategory savedPostCategory =
+                        PostCategory.builder()
+                                .post(savedPost)
+                                .category(category)
+                                .build();
+                postCategoryRepository.save(savedPostCategory);
+            }
+        }
         return savedPost;
     }
 

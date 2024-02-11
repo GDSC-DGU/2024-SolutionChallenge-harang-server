@@ -19,7 +19,8 @@ public record PostRequest(
         @JsonProperty("preferredGender") Gender preferredGender,
         @JsonProperty("preferredAge") int preferredAge,
         @JsonProperty("preferredStartAt") @JsonFormat(pattern = "yyyy-MM-dd") LocalDate preferredStartAt,
-        @JsonProperty("preferredEndAt") @JsonFormat(pattern = "yyyy-MM-dd") LocalDate preferredEndAt
+        @JsonProperty("preferredEndAt") @JsonFormat(pattern = "yyyy-MM-dd") LocalDate preferredEndAt,
+        @JsonProperty("category") List<String> categoryList
 ) {
 
 }
