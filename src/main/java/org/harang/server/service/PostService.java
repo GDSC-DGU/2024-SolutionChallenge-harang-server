@@ -66,4 +66,13 @@ public class PostService {
         return savedPost;
     }
 
+    @Transactional
+    public void deletePost(Long memberId, Long postId) {
+        Post post = postRepository.findByIdOrThrow(postId);
+        Location location = locationRepository.findByPostId(postId);
+
+        locationRepository.deleteByPostId(postId);
+        postRepository.delete(post);
+    }
+
 }
