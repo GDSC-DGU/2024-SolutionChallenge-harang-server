@@ -8,6 +8,7 @@ import org.harang.server.dto.common.ApiResponse;
 import org.harang.server.dto.request.MatchingRequest;
 import org.harang.server.dto.type.SuccessMessage;
 import org.harang.server.service.MatchingService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +38,10 @@ public class MatchingController {
     public ApiResponse<?> finishMatching(final @NotNull @PathVariable("postId") Long postId) {
         matchingService.finishMatching(postId);
         return ApiResponse.success(SuccessMessage.OK);
+    }
+
+    @GetMapping("/{postId}/waitings")
+    public ApiResponse<?> getWaitinglist(final @NotNull @PathVariable("postId") Long postId) {
+        return ApiResponse.success(matchingService.getWaitingList(postId));
     }
 }
