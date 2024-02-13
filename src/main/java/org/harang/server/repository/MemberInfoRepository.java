@@ -1,4 +1,4 @@
-성package org.harang.server.repository;
+package org.harang.server.repository;
 
 import java.util.Optional;
 import org.harang.server.domain.MemberInfo;
