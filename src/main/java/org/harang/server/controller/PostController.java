@@ -7,12 +7,12 @@ import org.harang.server.annotation.MemberId;
 import org.harang.server.domain.Post;
 import org.harang.server.dto.common.ApiResponse;
 import org.harang.server.dto.request.PostRequest;
+import org.harang.server.dto.response.PostResponse;
 import org.harang.server.dto.type.SuccessMessage;
 import org.harang.server.service.PostService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -28,5 +28,10 @@ public class PostController {
         Post post = postService.createPost(memberId, request);
 
         return ApiResponse.success(SuccessMessage.CREATED);
+    }
+
+    @GetMapping
+    public ApiResponse<List<PostResponse>> getAllPosts() {
+        return ApiResponse.success(postService.getAllPosts());
     }
 }
