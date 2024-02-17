@@ -56,9 +56,9 @@ public class PostService {
                         .build()
         );
 
-        for (String categoryName: request.categoryList()) {
+        for (String categoryName : request.categoryList()) {
             Category category = categoryRepository.findByName(categoryName);
-            if(category != null) {
+            if (category != null) {
                 PostCategory savedPostCategory =
                         PostCategory.builder()
                                 .post(savedPost)
@@ -77,4 +77,10 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    public List<PostResponse> getSearchResults(String title) {
+        return postRepository.findByTitleIsContaining(title)
+                .stream()
+                .map(p -> PostResponse.of(p))
+                .toList();
+    }
 }
