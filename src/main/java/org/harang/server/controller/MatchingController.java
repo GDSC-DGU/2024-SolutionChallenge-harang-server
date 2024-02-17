@@ -44,4 +44,11 @@ public class MatchingController {
     public ApiResponse<?> getWaitinglist(final @NotNull @PathVariable("postId") Long postId) {
         return ApiResponse.success(matchingService.getWaitingList(postId));
     }
+
+    @PostMapping("/{postId}/chats")
+    public ApiResponse<?> createMatchingWaiting(@MemberId Long memberId,
+            final @NotNull @PathVariable("postId") Long postId) {
+        matchingService.createMatchingWaiting(memberId, postId);
+        return ApiResponse.success(SuccessMessage.OK);
+    }
 }
