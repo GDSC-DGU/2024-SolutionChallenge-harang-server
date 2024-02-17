@@ -17,6 +17,9 @@ public class Member {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type;
@@ -40,7 +43,8 @@ public class Member {
     private List<Waiting> waitingList = new ArrayList<>();
 
     @Builder
-    public Member(Type type, Gender gender, Long age) {
+    public Member(String name, Type type, Gender gender, Long age) {
+        this.name = name;
         this.type = type;
         this.gender = gender;
         this.age = age;
