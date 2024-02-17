@@ -17,6 +17,9 @@ public class Member {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type;
@@ -28,6 +31,7 @@ public class Member {
     @Column(name = "age", nullable = false)
     private Long age;
 
+
     /* Relation Parent Mapping */
     @OneToMany(mappedBy = "member")
     private List<Matching> matchingList = new ArrayList<>();
@@ -35,8 +39,12 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Waiting> waitingList = new ArrayList<>();
+
     @Builder
-    public Member(Type type, Gender gender, Long age) {
+    public Member(String name, Type type, Gender gender, Long age) {
+        this.name = name;
         this.type = type;
         this.gender = gender;
         this.age = age;

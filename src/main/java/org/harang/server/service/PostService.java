@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.harang.server.domain.*;
 import org.harang.server.domain.enums.Status;
 import org.harang.server.dto.request.PostRequest;
+import org.harang.server.dto.response.PostResponse;
 import org.harang.server.repository.*;
+import org.hibernate.event.spi.PostDeleteEventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +76,12 @@ public class PostService {
 
         locationRepository.deleteByPostId(postId);
         postRepository.delete(post);
+
+    public List<PostResponse> getAllPosts() {
+        return postRepository.findAll()
+                .stream()
+                .map(PostResponse::of)
+                .collect(Collectors.toList());
     }
 
 }

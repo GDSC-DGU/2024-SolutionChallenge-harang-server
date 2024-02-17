@@ -36,6 +36,7 @@ public enum ErrorMessage {
     MEMBER_NOT_FOUND("40402", HttpStatus.NOT_FOUND, "사용자가 존재하지 않습니다."),
     POST_NOT_FOUND("40403", HttpStatus.NOT_FOUND, "게시글이 존재하지 않습니다."),
     MATCHING_NOT_FOUND("40404", HttpStatus.NOT_FOUND, "매칭이 존재하지 않습니다."),
+    MEMBER_INFO_NOT_FOUND("40405", HttpStatus.NOT_FOUND, "사용자의 정보가 존재하지 않습니다."),
 
 
     // method not allowed - 409

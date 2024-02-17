@@ -1,17 +1,22 @@
 package org.harang.server.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.harang.server.domain.Matching;
 import org.harang.server.domain.Member;
 import org.harang.server.domain.Post;
+import org.harang.server.domain.Waiting;
 import org.harang.server.domain.enums.Status;
 import org.harang.server.domain.enums.Type;
 import org.harang.server.dto.request.MatchingRequest;
+import org.harang.server.dto.response.WaitingResponse;
 import org.harang.server.dto.type.ErrorMessage;
 import org.harang.server.exception.CustomException;
 import org.harang.server.repository.MatchingRepository;
+import org.harang.server.repository.MemberInfoRepository;
 import org.harang.server.repository.MemberRepository;
 import org.harang.server.repository.PostRepository;
+import org.harang.server.repository.WaitingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +26,8 @@ public class MatchingService {
     private final MatchingRepository matchingRepository;
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final WaitingRepository waitingRepository;
+    private final MemberInfoRepository memberInfoRepository;
 
     @Transactional
     public void createMatching(Long memberId, MatchingRequest matchingRequest) {
@@ -75,5 +82,16 @@ public class MatchingService {
         // 변경사항 갱신
         postRepository.save(post);
         matchingRepository.save(matching);
+    }
+
+    public List<WaitingResponse> getWaitingList(Long postId) {
+        List<Waiting> waitingList = waitingRepository.findAllByPostId(postId);
+
+        List<WaitingResponse> waitingListResponse = waitingList.stream()
+                .map(w -> WaitingResponse.builder()
+                        .memberId(w.getMember().getId())
+                        .nickname(memberInfoRepository.findByMemberIdOrThrow(w.getMember().getId()).getNickname())
+                        .build()).toList();
+        return waitingListResponse;
     }
 }
