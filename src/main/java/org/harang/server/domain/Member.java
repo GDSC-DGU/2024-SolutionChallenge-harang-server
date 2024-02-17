@@ -28,12 +28,16 @@ public class Member {
     @Column(name = "age", nullable = false)
     private Long age;
 
+
     /* Relation Parent Mapping */
     @OneToMany(mappedBy = "member")
     private List<Matching> matchingList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Waiting> waitingList = new ArrayList<>();
 
     @Builder
     public Member(Type type, Gender gender, Long age) {
