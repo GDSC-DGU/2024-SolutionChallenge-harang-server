@@ -22,7 +22,7 @@ public class Help {
     private String name;
 
     /* Relation Parent Mapping */
-    @OneToMany(mappedBy = "help", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "help")
     private List<MemberHelp> memberHelpList = new ArrayList<>();
 
     @Builder

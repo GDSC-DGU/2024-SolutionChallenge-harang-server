@@ -32,10 +32,10 @@ public class MemberInfo {
     private String refreshToken;
 
     /* Relation Parent Mapping */
-    @OneToMany(mappedBy = "memberInfo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "memberInfo")
     private List<MemberHelp> memberHelpList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberInfo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "memberInfo")
     private List<Certification> certificationList = new ArrayList<>();
 
     @Builder
