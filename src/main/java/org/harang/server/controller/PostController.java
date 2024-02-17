@@ -30,6 +30,12 @@ public class PostController {
         return ApiResponse.success(SuccessMessage.CREATED);
     }
 
+    @DeleteMapping("/{postId}")
+    public ApiResponse<?> deletePost(@MemberId Long memberId, @PathVariable Long postId) {
+        postService.deletePost(memberId, postId);
+        return ApiResponse.success(SuccessMessage.OK);
+    }
+
     @GetMapping
     public ApiResponse<List<PostResponse>> getAllPosts() {
         return ApiResponse.success(postService.getAllPosts());

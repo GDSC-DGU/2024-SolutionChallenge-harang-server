@@ -77,4 +77,11 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public void deletePost(Long memberId, Long postId) {
+        Post post = postRepository.findByIdOrThrow(postId);
+
+        locationRepository.deleteByPostId(postId);
+        postRepository.delete(post);
+    }
 }
