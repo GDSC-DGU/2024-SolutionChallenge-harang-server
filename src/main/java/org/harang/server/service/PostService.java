@@ -82,6 +82,7 @@ public class PostService {
                 .stream()
                 .map(p -> PostResponse.of(p))
                 .toList();
+    }
 
     @Transactional
     public void deletePost(Long memberId, Long postId) {
@@ -89,6 +90,5 @@ public class PostService {
 
         locationRepository.deleteByPostId(postId);
         postRepository.delete(post);
-
     }
 }
