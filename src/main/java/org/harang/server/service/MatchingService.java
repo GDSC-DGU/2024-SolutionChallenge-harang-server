@@ -94,4 +94,31 @@ public class MatchingService {
                         .build()).toList();
         return waitingListResponse;
     }
+
+    @Transactional
+    public void createMatchingWaiting(Long memberId, Long postId) {
+        Post post = postRepository.findByIdOrThrow(postId);
+        Member member = memberRepository.findByIdOrThrow(memberId);
+
+        // 이미 사용자가 채팅을 시작한 글이라면 예외 발생
+        List<Long> waitingMemberIdList = waitingRepository.findAllByPostId(postId)
+                .stream().map(w -> w.getMember().getId()).toList();
+        for (Long m : waitingMemberIdList) {
+            if (m.equals(memberId)) {
+                throw new CustomException(ErrorMessage.CHAT_ALREADY_STARTED);
+            }
+        }
+
+        // 사용자가 물뿌리개가 아니라면 예외 발생
+        if (!member.getType().equals(Type.WATERING)) {
+            throw new CustomException(ErrorMessage.ONLY_WATERING_CAN_HELP_SPROUT);
+        }
+
+        Waiting newWaiting = Waiting.builder()
+                .post(post)
+                .member(member)
+                .build();
+
+        waitingRepository.save(newWaiting);
+    }
 }

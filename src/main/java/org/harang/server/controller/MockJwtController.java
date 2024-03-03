@@ -18,6 +18,6 @@ public class MockJwtController {
 
     @GetMapping
     public JwtTokenResponse getToken(){
-        return jwtUtil.generateTokens(Long.valueOf(1), Type.SPROUT);
+        return jwtUtil.generateTokens(Long.valueOf(2), Type.SPROUT);
     }
 }
