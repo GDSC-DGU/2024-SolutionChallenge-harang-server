@@ -10,6 +10,7 @@ import org.harang.server.dto.request.PostRequest;
 import org.harang.server.dto.response.PostResponse;
 import org.harang.server.dto.type.SuccessMessage;
 import org.harang.server.service.PostService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +40,11 @@ public class PostController {
     @GetMapping
     public ApiResponse<List<PostResponse>> getAllPosts() {
         return ApiResponse.success(postService.getAllPosts());
+    }
+
+    @Transactional(readOnly = true)
+    @GetMapping("/search")
+    public ApiResponse<?> getSearchResults(@RequestParam(name = "title") String title) {
+        return ApiResponse.success(postService.getSearchResults(title));
     }
 }
