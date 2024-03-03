@@ -8,7 +8,9 @@ import org.harang.server.domain.Post;
 import org.harang.server.dto.common.ApiResponse;
 import org.harang.server.dto.request.PostRequest;
 import org.harang.server.dto.response.PostResponse;
+import org.harang.server.dto.type.ErrorMessage;
 import org.harang.server.dto.type.SuccessMessage;
+import org.harang.server.exception.CustomException;
 import org.harang.server.service.PostService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +48,10 @@ public class PostController {
     @GetMapping("/search")
     public ApiResponse<?> getSearchResults(@RequestParam(name = "title") String title) {
         return ApiResponse.success(postService.getSearchResults(title));
+    }
+
+    @GetMapping("/recommend")
+    public ApiResponse<?> getRecommendedResults() {
+        return ApiResponse.success(postService.getRecommendedPosts());
     }
 }
