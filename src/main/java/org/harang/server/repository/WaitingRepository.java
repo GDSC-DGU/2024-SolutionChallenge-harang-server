@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WaitingRepository extends JpaRepository<Waiting, Long> {
     List<Waiting> findAllByPostId(Long postId);
+
+    List<Waiting> findAllByMemberId(Long memberId);
 }

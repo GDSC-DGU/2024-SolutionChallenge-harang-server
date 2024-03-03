@@ -5,8 +5,11 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.harang.server.domain.*;
 import org.harang.server.domain.enums.Status;
+import org.harang.server.domain.enums.Type;
 import org.harang.server.dto.request.PostRequest;
 import org.harang.server.dto.response.PostResponse;
+import org.harang.server.dto.type.ErrorMessage;
+import org.harang.server.exception.CustomException;
 import org.harang.server.repository.*;
 import org.hibernate.event.spi.PostDeleteEventListener;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ public class PostService {
     private final CategoryRepository categoryRepository;
     private final LocationRepository locationRepository;
     private final PostCategoryRepository postCategoryRepository;
+    private final WaitingRepository waitingRepository;
 
     @Transactional
     public Post createPost(Long memberId, PostRequest request) {
@@ -110,5 +114,27 @@ public class PostService {
                 .stream()
                 .map(p -> PostResponse.of(p))
                 .toList();
+    }
+
+    public List<PostResponse> getChattings(Long memberId) {
+        // 사용자가 물뿌리개인 경우 - 매칭 대기 리스트의 게시글 조회
+        // 사용자가 새싹인 경우 - 자신이 작성한 게시글 조회
+
+        Member member = memberRepository.findByIdOrThrow(memberId);
+        Type type = member.getType();
+        List<Post> posts;
+
+        if (type.equals(Type.SPROUT)) {
+            // 자신이 작성한 게시글 조회
+            posts = postRepository.findAllByMemberId(memberId);
+        } else if ((type.equals(Type.WATERING))) {
+            // 자신이 매칭 대기 중인 게시글 조회
+            List<Waiting> myWaitings = waitingRepository.findAllByMemberId(memberId);
+            posts = myWaitings.stream().map(w -> w.getPost()).toList();
+        } else {
+            throw new CustomException(ErrorMessage.INVALID_MEMBER_TYPE);
+        }
+
+        return posts.stream().map(p -> PostResponse.of(p)).toList();
     }
 }

@@ -13,4 +13,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     }
 
     List<Post> findByTitleIsContaining(String title);
+
+    List<Post> findAllByMemberId(Long memberId);
 }
