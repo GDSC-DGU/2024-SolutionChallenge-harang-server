@@ -77,6 +77,7 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    // TODO: 이전 호출 결과도 중복되어 반환되는 문제 원인 파악
     public List<PostResponse> getSearchResults(String title) {
         return postRepository.findByTitleIsContaining(title)
                 .stream()
