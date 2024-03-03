@@ -49,6 +49,7 @@ public enum ErrorMessage {
     MATCHING_ALREADY_DONE("50004", HttpStatus.INTERNAL_SERVER_ERROR, "이미 종료된 매칭입니다."),
     ONLY_SPROUT_CAN_CREATE_MATCH("50005", HttpStatus.INTERNAL_SERVER_ERROR, "새싹인 유저만 매칭을 생성할 수 있습니다."),
     ONLY_WATERING_CAN_HELP_SPROUT("50006", HttpStatus.INTERNAL_SERVER_ERROR, "물뿌리개인 유저만 새싹을 도와줄 수 있습니다."),
+    CHAT_ALREADY_STARTED("50007", HttpStatus.INTERNAL_SERVER_ERROR, "이미 채팅을 시작한 게시글입니다."),
     ;
 
     private String code;

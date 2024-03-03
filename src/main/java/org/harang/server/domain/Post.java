@@ -55,13 +55,13 @@ public class Post {
     private Status status = Status.WAITING;
 
     /* Relation Parent Mapping */
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Matching> matchingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostCategory> postCategoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Waiting> waitingList = new ArrayList<>();
 
     @Builder
